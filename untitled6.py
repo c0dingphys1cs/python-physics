@@ -66,8 +66,8 @@ with schemdraw.Drawing(show=False) as d:
 
     print("Schematic saved.")
 
-   # from IPython.display import Image
-    Image('tia_schematic.png')
+   # from IPython.display import Image( run separately)
+   # Image('tia_schematic.png')
 
 from IPython.display import Image
 Image('tia_schematic.png')
