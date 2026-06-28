@@ -1,0 +1,109 @@
+import numpy as np              # numpy = library for fast math on arrays of numbers
+import matplotlib.pyplot as plt # matplotlib.pyplot = library for making plots/graphs
+                                  # "as np" / "as plt" = just nicknames so we type less
+
+
+# ---- STEP 1: Define constants we need from physics ----
+# These are universal physical constants, always the same value in nature.
+
+h = 6.626e-34   
+# Planck's constant. 
+# "6.626e-34" means 6.626 × 10^(-34). Python uses 'e' for scientific notation.
+# Units: Joule-seconds (J·s)
+
+c = 3e8         
+# Speed of light = 3 × 10^8 meters per second
+
+k = 1.381e-23   
+# Boltzmann's constant. Connects temperature to energy.
+# Units: Joules per Kelvin (J/K)
+
+
+# ---- STEP 2: Define a function that calculates Planck's Law ----
+# A "function" is a reusable block of code. You give it inputs, it gives you an output.
+
+def planck(wavelength, T):
+    """
+    This text in triple quotes is called a "docstring" — 
+    it's just a note explaining what the function does. Python ignores it when running.
+    """
+    
+    a = 2 * h * c**2   
+    # ** means "to the power of". So c**2 = c squared.
+    # 'a' is just a temporary variable to store part of the formula 
+    # (breaking the equation into pieces makes it easier to read)
+    
+    b = h * c / (wavelength * k * T)
+    # Another piece of the Planck's Law formula
+    # '/' means division
+    
+    return a / (wavelength**5 * (np.exp(b) - 1))
+    # "return" sends this calculated value back out of the function
+    # np.exp(b) = e^b (the mathematical constant e raised to power b)
+    # This whole line is the actual Planck's Law equation
+
+
+# ---- STEP 3: Create a range of wavelengths to plug into the function ----
+
+wavelength = np.linspace(1e-7, 3e-6, 1000)
+# np.linspace(start, stop, number_of_points)
+# This creates 1000 evenly spaced numbers between 1e-7 and 3e-6 (in meters)
+# Think of it like: "give me 1000 dots along this ruler, from start to end"
+# 1e-7 meters = 100 nanometers, 3e-6 meters = 3000 nanometers
+
+
+# ---- STEP 4: List of temperatures we want to plot curves for ----
+
+temperatures = [3000, 4000, 5000, 5778, 7000]   
+# This is a "list" — a collection of values inside square brackets [ ]
+# 5778 K is the Sun's surface temperature
+
+
+# ---- STEP 5: Set up the plot ----
+
+plt.figure(figsize=(9, 6))
+# Creates a blank canvas/figure for the plot
+# figsize=(9,6) sets the width and height in inches
+
+
+# ---- STEP 6: Loop through each temperature and plot a curve for it ----
+
+for T in temperatures:
+    # "for X in list:" means "repeat this block once for every item in the list"
+    # Each time through the loop, T becomes the next number in temperatures
+    # 1st loop: T = 3000, 2nd loop: T = 4000, and so on
+    
+    intensity = planck(wavelength, T)
+    # Calls our function from Step 2, using the current T
+    # This calculates the brightness at every wavelength, for this temperature
+    
+    plt.plot(wavelength * 1e9, intensity, label=f"T = {T} K")
+    # plt.plot(x_values, y_values) draws a line on the graph
+    # wavelength * 1e9 converts meters → nanometers (multiply by 10^9)
+    # label= sets the name that will show up in the legend
+    # f"T = {T} K" is an "f-string" — lets you insert a variable's value inside text
+    #   e.g. if T = 5000, this becomes the text "T = 5000 K"
+
+
+# ---- STEP 7: Add labels, title, and styling ----
+
+plt.xlabel("Wavelength (nm)")     
+# Text label for the horizontal (x) axis
+
+plt.ylabel("Spectral Radiance (W·sr⁻¹·m⁻³)")  
+# Text label for the vertical (y) axis
+
+plt.title("Blackbody Spectrum (Planck's Law)")  
+# Title text shown above the graph
+
+plt.legend()    
+# Shows the little box listing which color/line = which temperature
+# (uses the "label=" text we set earlier in plt.plot)
+
+plt.grid(alpha=0.3)   
+# Adds light gridlines to the background
+# alpha=0.3 means 30% opacity (so it's faint, not distracting)
+
+plt.show()       
+# Actually displays the final graph on screen
+# Without this line, the plot would be created but never shown
