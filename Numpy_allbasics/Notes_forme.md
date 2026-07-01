@@ -3,41 +3,41 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
-###arrays
+### arrays
 
-##creates an array from a python list
+creates an array from a python list
 ```python
 a1= np.array([2,4,6,8])
 ```
-##creates an array of 5 zeros
+creates an array of 5 zeros
 
 ```python
 a2 = np.zeros(5)
 ```
-##creates an array of 5 ones
+creates an array of 5 ones
 
 ```python
 a3 = np.ones(5)
 ```
-##creates 10 random floats from a standard normal (mean=0, std=1) distribution 
+creates 10 random floats from a standard normal (mean=0, std=1) distribution 
 ```python
 a4 = np.random.randn(10)
 ```
-##creates 10 random floats uniformly distribution between 0 and 1
+creates 10 random floats uniformly distribution between 0 and 1
 ```python
 a5 = np.random.random(10)
 ```
-##creates 50 evenly spaced values between 0 and 10 (inclusive)
+creates 50 evenly spaced values between 0 and 10 (inclusive)
 ```python
 a6 = np.linspace(0,10,50)
 ```
-##creates values from 0 to 10 (exclusive) with a step of 0.2
+creates values from 0 to 10 (exclusive) with a step of 0.2
 
 ```python
 a7= np.arange(0,10,0.1)
 ```
 
-##Can we define a range in a4
+Can we define a range in a4
 not directly- randn always draws from the standard normal distribution.
 in random we can shift and scale the output to get any distribution
 
